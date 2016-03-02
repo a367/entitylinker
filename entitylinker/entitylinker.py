@@ -270,11 +270,17 @@ class MainWindow(QMainWindow):
         table.verticalHeader().setVisible(False)
         table.horizontalHeader().setVisible(False)
         table.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        table.resizeRowsToContents()
         table.setShowGrid(False)
+        table.setAutoFillBackground(True)
+        table.setFont(QFont("song",15))
 
         p = table.palette()
+        p.setColor(QPalette.Text,QColor(255,255,255))
         p.setColor(QPalette.Base,QColor(34,34,34))
         table.setPalette(p)
+
+      
 
         newItem = QTableWidgetItem(u"松鼠")  
         table.setItem(0, 0, newItem)  
@@ -284,7 +290,6 @@ class MainWindow(QMainWindow):
           
         newItem = QTableWidgetItem(u"60g")  
         table.setItem(0, 2, newItem)   
-
         ## 主布局添加
         mainLayout.addWidget(table) 
 
@@ -292,7 +297,7 @@ class MainWindow(QMainWindow):
         widget.setLayout(mainLayout) 
 
 
-        #self.resize(640,480)
+        self.resize(1500,1200)
         self.center()
 
     # 居中显示
