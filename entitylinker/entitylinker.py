@@ -315,7 +315,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    m = MainWindow()
-    m.show()
+    t = 1
 
     app.exec_()
