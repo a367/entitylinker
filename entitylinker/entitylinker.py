@@ -315,10 +315,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
-    #main=Palette()  
-    #main.show()
-
     m = MainWindow()
     m.show()
 
