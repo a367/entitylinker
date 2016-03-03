@@ -11,26 +11,23 @@ class MainTable(QTableWidget):
         self.verticalHeader().setVisible(False)
         self.horizontalHeader().setVisible(False)
         self.horizontalHeader().setResizeMode(QHeaderView.Stretch)
-        self.verticalHeader().setDefaultSectionSize(80)
+        self.verticalHeader().setDefaultSectionSize(50)
         self.setShowGrid(False)
         self.setAutoFillBackground(True)
         self.setFont(QFont("song",15))
 
         p = self.palette()
         p.setColor(QPalette.Text,QColor(255,255,255))
-        p.setColor(QPalette.Base,QColor(0,0,0))
-        p.setColor(QPalette.AlternateBase, QColor(34,34,34))
+        p.setColor(QPalette.Base,QColor(34,34,34))
+        p.setColor(QPalette.AlternateBase, QColor(39,39,39))
         self.setPalette(p)
         self.setAlternatingRowColors(True);
-
-        t = tableManager()
-        tables = t.getTable()
-        self.feedTable(tables[0])
-
-
+        self.setFrameShape(QListWidget.NoFrame)
+        self.verticalScrollBar().setStyleSheet(open('../qss/ScrollBarStyle.qss','r').read())
 
     # 设置table
-    def feedTable(self,table):
+    def displayTable(self,i):
+        table = self.tables[i]
         col_count = len(table)
         row_count = len(table[0])
         self.setColumnCount(col_count)
@@ -39,3 +36,9 @@ class MainTable(QTableWidget):
         for i in range(col_count):
             for j in range(row_count):
                 self.setItem(j,i,QTableWidgetItem(table[i][j]))
+
+        self.setCurrentCell(0,0)
+
+    # 初始化表格数据
+    def setTables(self, tables):
+        self.tables = tables
