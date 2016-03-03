@@ -23,6 +23,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="entitylinker.py" />
+    <Compile Include="MainList.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainTable.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="table.py" />
   </ItemGroup>
   <PropertyGroup>
