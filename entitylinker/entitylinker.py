@@ -1,9 +1,13 @@
 #coding=utf8
 import sys
+import ctypes
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("myappid")
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from table import tableManager
 from MainList import MainList
+from TitlteBar import TitleBar
 from MainTable import MainTable
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -15,16 +19,7 @@ class MainWindow(QMainWindow):
     
         self.setWindowTitle(u'Entity Linker')
         self.setWindowFlags(Qt.FramelessWindowHint)
-        # MenuBar
-        #menubar = self.menuBar()
-        #file = menubar.addMenu(u'文件')
-        #fileopen = file.addAction(u'打开')
-        #filexit = file.addAction(u'退出')
-        #filexit.setShortcut('Ctrl+Q')
-        #self.connect(filexit, SIGNAL('triggered()'), self.exit)
-
-        #self.setMenuBar(menubar)
-
+        self.setWindowIcon(QIcon("../icon/linker_01.png"))
         p = self.palette()
         p.setColor(QPalette.Background,QColor(34,34,34))
         self.setPalette(p)
@@ -36,23 +31,32 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         ## 主要布局
-        mainLayout=QHBoxLayout()  
+        mainLayout=QVBoxLayout()  
+        mainLayout.setSpacing(0)
 
-        ### 表格
+        self.titlebar = TitleBar()
+        self.titlebar.setMainWindow(self)
+
+        ### 表格的布局
+        table_layout = QHBoxLayout()
+
         self.table = MainTable()
         self.list = MainList()
         self.list.connectTable(self.table)
 
+        table_layout.addWidget(self.list)
+        table_layout.addWidget(self.table)
+
         ## 主布局添加
-        mainLayout.addWidget(self.list)
-        mainLayout.addWidget(self.table) 
-        
+        mainLayout.addWidget(self.titlebar)
+        mainLayout.addLayout(table_layout)   
 
         # 整体布局器加入   
         widget.setLayout(mainLayout) 
 
         self.reedTables()
-        self.resize(960,640)
+        #self.resize(960,640)
+        self.resize(1500,1200)
         self.center()
 
     # 居中显示
@@ -82,5 +86,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     m = MainWindow()
     m.show()
-
     app.exec_()

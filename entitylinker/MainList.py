@@ -6,8 +6,11 @@ class MainList(QListWidget):
     def __init__(self, parent=None):
         QListWidget.__init__(self,parent)
 
-        self.setMaximumWidth(170)
-        self.setMinimumWidth(170)
+        #self.setMaximumWidth(170)
+        #self.setMinimumWidth(170)
+
+        self.setMaximumWidth(300)
+        self.setMinimumWidth(300)
 
         p = self.palette()
         p.setColor(QPalette.Text,QColor(255,255,255))
