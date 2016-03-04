@@ -14,16 +14,20 @@ class MainTable(QTableWidget):
         self.verticalHeader().setDefaultSectionSize(50)
         self.setShowGrid(False)
         self.setAutoFillBackground(True)
-        self.setFont(QFont("song",15))
+        self.setFont(QFont(u"微软雅黑",15))
 
         p = self.palette()
         p.setColor(QPalette.Text,QColor(255,255,255))
         p.setColor(QPalette.Base,QColor(34,34,34))
+        p.setColor(QPalette.Background,QColor(34,34,34))
         p.setColor(QPalette.AlternateBase, QColor(39,39,39))
         self.setPalette(p)
+        self.setFocusPolicy(Qt.NoFocus)
         self.setAlternatingRowColors(True);
         self.setFrameShape(QListWidget.NoFrame)
+        self.setStyleSheet('QTableView {selection-background-color: #FFFFFF; selection-color: #000000;}')    
         self.verticalScrollBar().setStyleSheet(open('../qss/ScrollBarStyle.qss','r').read())
+        
 
     # 设置table
     def displayTable(self,i):
@@ -38,6 +42,10 @@ class MainTable(QTableWidget):
                 self.setItem(j,i,QTableWidgetItem(table[i][j]))
 
         self.setCurrentCell(0,0)
+
+    def changeItem(self, index):
+        item = self.item(index.column(),index.row())
+        item.setBackground(Qt.white)
 
     # 初始化表格数据
     def setTables(self, tables):

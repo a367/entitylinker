@@ -14,7 +14,7 @@ class MainList(QListWidget):
         p.setColor(QPalette.Base,QColor(39,39,39))
         self.setPalette(p)
 
-        self.setFont(QFont("song",13))
+        self.setFont(QFont(u"微软雅黑",13))
 
         self.setFrameShape(QListWidget.NoFrame)
         self.verticalScrollBar().setStyleSheet(open('../qss/ScrollBarStyle.qss','r').read())
