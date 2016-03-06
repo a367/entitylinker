@@ -5,10 +5,10 @@ ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("myappid")
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from table import tableManager
-from MainList import MainList
-from TitlteBar import TitleBar
-from MainTable import MainTable
+from Function.WidgetManager import WidgetManager
+from Item.ToolBar import ToolBar
+from Item.TitlteBar import TitleBar
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -21,9 +21,9 @@ class MainWindow(QMainWindow):
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setWindowIcon(QIcon("../icon/linker_01.png"))
         p = self.palette()
+        p.setColor(QPalette.Base,QColor(34,34,34))
         p.setColor(QPalette.Background,QColor(34,34,34))
         self.setPalette(p)
-
 
 
         # 整体布局器
@@ -32,31 +32,30 @@ class MainWindow(QMainWindow):
 
         ## 主要布局
         mainLayout=QVBoxLayout()  
+        mainLayout.setMargin(0)
         mainLayout.setSpacing(0)
+
+        ### 标题栏，工具栏，主窗口
+
+        self.WidgetManager = WidgetManager()
+
 
         self.titlebar = TitleBar()
         self.titlebar.setMainWindow(self)
 
-        ### 表格的布局
-        table_layout = QHBoxLayout()
-
-        self.table = MainTable()
-        self.list = MainList()
-        self.list.connectTable(self.table)
-
-        table_layout.addWidget(self.list)
-        table_layout.addWidget(self.table)
+        self.toolbar = ToolBar()
+        self.toolbar.setWidgetManager(self.WidgetManager)
 
         ## 主布局添加
         mainLayout.addWidget(self.titlebar)
-        mainLayout.addLayout(table_layout)   
+        mainLayout.addWidget(self.toolbar)
+        for v in self.WidgetManager.WidgetDict.itervalues():
+            mainLayout.addWidget(v)
 
         # 整体布局器加入   
         widget.setLayout(mainLayout) 
 
-        self.reedTables()
-        #self.resize(960,640)
-        self.resize(1500,1200)
+        self.resize(1060,840)
         self.center()
 
     # 居中显示
@@ -70,15 +69,7 @@ class MainWindow(QMainWindow):
     def exit(self):
         sys.exit(0)
 
-    def reedTables(self):
-        tables = tableManager().getTable()
-        self.table.setTables(tables)
 
-        for i in range(len(tables)):
-            self.list.feedTitle(u'第%d个表格'%(i+1))
-
-        self.table.displayTable(0)
-        self.list.setCurrentRow(0)
 
 
 

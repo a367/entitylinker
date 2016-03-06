@@ -1,7 +1,6 @@
 #coding=utf8
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from table import tableManager
 
 class MainTable(QTableWidget):
     def __init__(self, parent=None):
@@ -11,10 +10,10 @@ class MainTable(QTableWidget):
         self.verticalHeader().setVisible(False)
         self.horizontalHeader().setVisible(False)
         self.horizontalHeader().setResizeMode(QHeaderView.Stretch)
-        self.verticalHeader().setDefaultSectionSize(50)
+        self.verticalHeader().setDefaultSectionSize(40)
         self.setShowGrid(False)
         self.setAutoFillBackground(True)
-        self.setFont(QFont(u"微软雅黑",15))
+        self.setFont(QFont(u"微软雅黑",12))
 
         p = self.palette()
         p.setColor(QPalette.Text,QColor(255,255,255))

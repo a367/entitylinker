@@ -23,19 +23,39 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="entitylinker.py" />
-    <Compile Include="MainList.py">
+    <Compile Include="Function\WidgetManager.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainTable.py">
+    <Compile Include="Widget\CodeWidget.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="table.py" />
+    <Compile Include="Item\MainList.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\MainTable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function\table.py" />
     <Compile Include="test.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TitlteBar.py">
+    <Compile Include="test2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Item\TitlteBar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Item\ToolBar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Widget\ListWidget.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Item\" />
+    <Folder Include="Function\" />
+    <Folder Include="Widget\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
