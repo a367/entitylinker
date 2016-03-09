@@ -11,32 +11,30 @@ class SimplePythonEditor(QsciScintilla):
         super(SimplePythonEditor, self).__init__(parent)
 
         # Set the default font
-        font = QFont()
-        font.setFamily('Microsoft YaHei UI Light')
-        font.setFixedPitch(True)
+        font = QFont(u'Consolas')
+        #font.setFixedPitch(True)
         font.setPointSize(10)
         self.setFont(font)
         self.setMarginsFont(font)
-
-        # Margin 0 is used for line numbers
-        fontmetrics = QFontMetrics(font)
-        self.setMarginsFont(font)
         self.setUtf8(True)
+
         
-        self.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        fontmetrics = QFontMetrics(font)
+
+        # Margin 0 is used for line numbers, 1 is used for marker
+        self.setMarginWidth(0, fontmetrics.width("000"))
+        self.setMarginWidth(1,0)
         self.setMarginLineNumbers(0, True)
-        
         self.setMarginsBackgroundColor(QColor("#cccccc"))
 
         # Clickable margin 1 for showing markers
-        self.setMarginSensitivity(1, True)
-        self.connect(self,
-            SIGNAL('marginClicked(int, int, Qt::KeyboardModifiers)'),
-            self.on_margin_clicked)
-        self.markerDefine(QsciScintilla.RightArrow,
-            self.ARROW_MARKER_NUM)
-        self.setMarkerBackgroundColor(QColor("#ee1111"),
-            self.ARROW_MARKER_NUM)
+        #self.setMarginSensitivity(1, True)
+
+        #self.connect(self, SIGNAL('marginClicked(int, int, Qt::KeyboardModifiers)'), self.on_margin_clicked)
+        #self.markerDefine(QsciScintilla.RightArrow,
+        #    self.ARROW_MARKER_NUM)
+        #self.setMarkerBackgroundColor(QColor("#ee1111"),
+        #    self.ARROW_MARKER_NUM)
 
         # Brace matching: enable for a brace immediately before or after
         # the current position
@@ -45,24 +43,39 @@ class SimplePythonEditor(QsciScintilla):
 
         # Current line visible with special background color
         self.setCaretLineVisible(True)
-        self.setCaretLineBackgroundColor(QColor("#ffe4e4"))
+        #self.setCaretLineBackgroundColor(QColor("#ffffff"))
+        
 
         # Set Python lexer
         # Set style for Python comments (style number 1) to a fixed-width
-        # courier.
-        #
         lexer = QsciLexerPython()
         lexer.setDefaultFont(font)
+        #lexer.setColor(QColor("#ffffff"))  
+        lexer.setPaper(QColor(39,39,39))  
+        lexer.setColor(QColor("#a6e22e"),QsciLexerPython.ClassName)  
+        lexer.setColor(QColor("#66d9ef"),QsciLexerPython.Keyword)  
+        lexer.setColor(QColor("#75715e"),QsciLexerPython.Comment)  
+        lexer.setColor(QColor("#ae81ff"),QsciLexerPython.Number)  
+        lexer.setColor(QColor("#e6db74"),QsciLexerPython.DoubleQuotedString)  
+        lexer.setColor(QColor("#e6db74"),QsciLexerPython.TripleSingleQuotedString)  
+        lexer.setColor(QColor("#e6db74"),QsciLexerPython.TripleDoubleQuotedString)  
+        lexer.setColor(QColor("#a6e22e"),QsciLexerPython.FunctionMethodName)  
+        lexer.setColor(QColor("#f92672"),QsciLexerPython.Operator)  
+        lexer.setColor(QColor("#FFFFFF"),QsciLexerPython.Identifier)  
+        lexer.setColor(QColor("#75715e"),QsciLexerPython.CommentBlock)  
+        lexer.setColor(QColor("#ae81ff"),QsciLexerPython.UnclosedString)  
+        lexer.setColor(QColor("#F1E607"),QsciLexerPython.HighlightedIdentifier)  
+        lexer.setColor(QColor("#a6e22e"),QsciLexerPython.Decorator)  
+
         self.setLexer(lexer)
-        self.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Courier')
+        #self.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Courier')
 
         # Don't want to see the horizontal scrollbar at all
         # Use raw message to Scintilla here (all messages are documented
         # here: http://www.scintilla.org/ScintillaDoc.html)
-        self.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 0)
+        #self.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 0)
 
         # not too small
-        self.setMinimumSize(600, 450)
 
     def on_margin_clicked(self, nmargin, nline, modifiers):
         # Toggle marker for the line the margin was clicked on
@@ -74,7 +87,6 @@ class SimplePythonEditor(QsciScintilla):
 class CodeWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
-        
 
         layout = QHBoxLayout()
         self.list = MainList()

@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf8')
 
 class tableManager:
     def __init__(self):
-        self.excel = xlrd.open_workbook('..//data//table_data.xls')
+        self.excel = xlrd.open_workbook('../data/list/table_data.xls')
     def getTable(self):
         table = self.excel.sheet_by_name('table')
         tables = []
