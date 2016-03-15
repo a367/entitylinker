@@ -57,7 +57,9 @@ class TitleBar(QWidget):
         layout.addWidget(btn_close)
         layout.insertStretch(2);
         self.setLayout(layout)
-        self.setMaximumHeight(40)
+
+
+        #self.setMaximumHeight(40)
         self.setMinimumHeight(40)
         
     def min(self):

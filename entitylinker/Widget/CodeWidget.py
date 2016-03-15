@@ -2,6 +2,7 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.Qsci import *
+from PyQt4.QtWebKit import *
 from Item.MainList import MainList
 
 class SimplePythonEditor(QsciScintilla):
@@ -84,19 +85,34 @@ class SimplePythonEditor(QsciScintilla):
         else:
             self.markerAdd(nline, self.ARROW_MARKER_NUM)
 
+
+class SimplePythonViewer(QWebView):
+    def __init__(self, *args):
+        QWebView.__init__(self)
+        #self.show()
+        #self.verticalScrollBar().setStyleSheet(open('../qss/ScrollBarStyle.qss','r').read())
+       
+        #self.setStyleSheet(open('../qss/ScrollBarStyle.qss','r').read())
+        
+        self.page().mainFrame()
+        self.setHtml(open('test.html','r').read().decode('utf8'))
+
+
 class CodeWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
 
         layout = QHBoxLayout()
         self.list = MainList()
-        self.textEdit = SimplePythonEditor()
-        x = open('test.py','r').read().decode('utf8')
+        self.codeView = SimplePythonViewer()
+        
+        #self.textEdit = SimplePythonEditor()
+        #x = open('test.py','r').read().decode('utf8')
 
-        self.textEdit.setText(x)
+        #self.textEdit.setText(x)
 
         layout.addWidget(self.list)
-        layout.addWidget(self.textEdit)
+        layout.addWidget(self.codeView)
 
         self.setLayout(layout)
         self.setMinimumWidth(840)
