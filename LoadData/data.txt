@@ -1,0 +1,25 @@
+[
+	{
+		"row":2,
+		"col":1,
+		"content":[
+			{
+				"mention":"小米",
+				"candidates":[
+							{"name":"小米（农作物）","count":10}, 
+							{"name":"小米手机","count":11}
+							]
+			},
+
+			{
+				"mention":"苹果",
+				"candidates":[
+							{"name":"苹果（水果）","count":12}, 
+							{"name":"苹果手机","count":13}
+							]
+			}
+		]
+
+	}
+	
+]

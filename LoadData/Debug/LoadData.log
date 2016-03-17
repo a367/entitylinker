@@ -1,0 +1,18 @@
+﻿生成启动时间为 2016/3/17 12:56:51。
+     1>项目“C:\Users\piao\Documents\GitHub\entitylinker\LoadData\LoadData.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt "源.cpp"
+         源.cpp
+     1>c:\users\piao\documents\github\entitylinker\loaddata\源.cpp(19): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\piao\documents\github\entitylinker\loaddata\源.cpp(38): warning C4018: “<”: 有符号/无符号不匹配
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\piao\Documents\GitHub\entitylinker\Debug\LoadData.exe" /INCREMENTAL /NOLOGO jsoncpp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\piao\Documents\GitHub\entitylinker\Debug\LoadData.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\piao\Documents\GitHub\entitylinker\Debug\LoadData.lib" /MACHINE:X86 "Debug\源.obj"
+     1>jsoncpp.lib(json_reader.obj) : warning LNK4099: 未找到 PDB“lib_json.pdb”(使用“jsoncpp.lib(json_reader.obj)”或在“C:\Users\piao\Documents\GitHub\entitylinker\Debug\lib_json.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>jsoncpp.lib(json_value.obj) : warning LNK4099: 未找到 PDB“lib_json.pdb”(使用“jsoncpp.lib(json_value.obj)”或在“C:\Users\piao\Documents\GitHub\entitylinker\Debug\lib_json.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>jsoncpp.lib(json_writer.obj) : warning LNK4099: 未找到 PDB“lib_json.pdb”(使用“jsoncpp.lib(json_writer.obj)”或在“C:\Users\piao\Documents\GitHub\entitylinker\Debug\lib_json.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+         LoadData.vcxproj -> C:\Users\piao\Documents\GitHub\entitylinker\Debug\LoadData.exe
+     1>已完成生成项目“C:\Users\piao\Documents\GitHub\entitylinker\LoadData\LoadData.vcxproj”(Rebuild 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:02.37
