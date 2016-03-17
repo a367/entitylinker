@@ -25,7 +25,7 @@ class TitleBar(QWidget):
         icon = QLabel()
         icon.setPixmap(QPixmap("../icon/linker.png").scaled(1024/20,598/20))
         
-        title = WhiteLabel("Entity Linker 1.0 Ultimate")
+        title = WhiteLabel("Entity Linker 1.0 Test")
 
         btn_close = QToolButton(self)
         btn_close.setIcon(QIcon("../icon/close.png"))
@@ -59,7 +59,7 @@ class TitleBar(QWidget):
         self.setLayout(layout)
 
 
-        #self.setMaximumHeight(40)
+        self.setMaximumHeight(40)
         self.setMinimumHeight(40)
         
     def min(self):

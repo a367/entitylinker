@@ -1,0 +1,630 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta name="UYId" content="art_270597" />
+<title>掀起C++ 11的神秘面纱(2) - 51CTO.COM</title>
+<meta name="description" content="C++之父Bjame Stroustrup最近说C++11就像一个新语言，的确，C++11核心已经发生了巨大的变化，它现在支持Lambda表达式，对象类型自动推断，统一的初始化语法，委托构造函数，deleted和defaulted函数声明nullptr，以及最重要的右值引用。"/>
+<meta name="keywords" content="C++"/>
+<base target="_blank" />
+<link href="http://images.51cto.com/images/art1105/css/grid.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="http://images.51cto.com/images/art/css/art_master_top.css" />
+<link href="http://book.51cto.com/images/bookspec/css/css3.css" rel="stylesheet" type="text/css" />
+<script language="javaScript" src="http://www.51cto.com/php/base_art.js"></SCRIPT>
+<script src="http://www.51cto.com/images/homepage/index_1_down.js"></script>
+<style type="text/css">
+.bds_tools a{ padding:0; margin:0;}
+</style>
+</head>
+<body >
+<!-- 导航 开始-->
+<script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/a3b9823c927173ada250e3f2f84f4703/allmobilize.min.js"></script><meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+<div id="home_top">    <div class="top_nav">        <div class="left" style="width:400px"><div class="logo_51cto" title="51CTO.COM - 技术成就梦想 -  中国领先的IT技术网站"></div><a href="http://www.51cto.com/">首页</a><img width="16" height="25" align="absmiddle" src="http://home.51cto.com/public/themes/blue/images/top_bg_xian.gif" style="padding-top: 2px;"><a onmouseover="show(1,this);" onmouseout="popupClose();" href="http://www.51cto.com/col/35/" target="_blank">技术频道<img align="absmiddle" src="http://images.51cto.com/images/art/top_images/nav_ico1.gif" style="padding-left: 4px;"></a><img width="16" height="25" align="absmiddle" src="http://home.51cto.com/public/themes/blue/images/top_bg_xian.gif"><a onmouseover="show(2,this);" onmouseout="popupClose();" href="http://www.51cto.com" target="_blank">51CTO旗下网站<img align="absmiddle" src="http://images.51cto.com/images/art/top_images/nav_ico1.gif" style="padding-left: 4px;"></a><img width="16" height="25" align="absmiddle" src="http://home.51cto.com/public/themes/blue/images/top_bg_xian.gif"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a> <a href="http://www.51cto.com/about/rss.html" target="_blank"><img src="http://images.51cto.com/files/uploadimg/20110922/143749870.gif" style="vertical-align:middle; margin-bottom: 5px; margin-left:5px;"></a>       </div>        <div class="right">            <div class="more"><img width="27" height="16" align="absmiddle" src="http://home.51cto.com/public/themes/blue/images/top_shequ.gif"><a href="http://gaozhao.51cto.com/" target="_blank" style="color:#CC0000">招聘</a><a href="http://edu.51cto.com/" target="_blank" style="color:#CC0000">学院</a><a href="http://down.51cto.com" target="_blank">下载</a><a href="http://bbs.51cto.com" target="_blank">论坛</a><a href="http://blog.51cto.com" target="_blank">博客</a><a onmouseover="show(3,this)" onmouseout="popupClose()" href="javascript:viod(0);">更多<img align="absmiddle" src="http://images.51cto.com/images/art/top_images/nav_ico1.gif" style="padding-left: 4px;"></a>            </div>            <span id="login_status"><div class="login" id="login_status"></div>    </span>                </div>    </div></div>
+<div class="subMenu1" id="s1" onmouseover="popupNoClose();" onmouseout="popupClose();">
+<ul>
+<li><a href="http://network.51cto.com" target="_blank">网络</a></li>
+<li><a href="http://netsecurity.51cto.com" target="_blank">安全</a></li>
+<li><a href="http://developer.51cto.com" target="_blank">开发</a></li>
+<li><a href="http://database.51cto.com" target="_blank">数据库</a></li>
+<li><a href="http://server.51cto.com" target="_blank">服务器</a></li>
+<li><a href="http://os.51cto.com" target="_blank">系统</a></li>
+<li><a href="http://virtual.51cto.com" target="_blank">虚拟化</a></li>
+<li><a href="http://cloud.51cto.com" target="_blank">云计算</a></li>
+<li><a href="http://developer.51cto.com/embed/" target="_blank">嵌入式</a></li>
+<li><a href="http://mobile.51cto.com/" target="_blank">移动开发</a></li>
+</ul>
+</div> 
+<div class="subMenu2" id="s2" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://www.51cto.com" target="_blank" title="中国领先的IT技术网站">51CTO.COM</a></li>
+<li><a href="http://www.cioage.com" target="_blank" title="中国首个专门服务于CIO的专业网站">CIOage.com</a></li>
+<li><a href="http://www.watchstor.com/" target="_blank"  title="领先的中文存储网络媒体">WatchStor.com</a></li>
+<li><a href="http://www.hc3i.cn/" target="_blank"  title="中国首家专注于数字医疗及医疗信息化的专业网站">HC3i.cn</a></li>
+</ul>
+</div>
+<script src="http://www.51cto.com/js/jquery-1.8.3.min.js"></script>
+<script>
+$(function(){
+	$(".bann").height(265);	 
+	$(".bann").css("background-color","white");
+	$(".hot").css("top","450px");
+	//$(".fixfloat").css("height","640px");
+	$(".g_13").find(".focus").css("height","640px");
+});
+var edunum=2;
+$(function(){
+	$("#change").click(function(){
+		$("#edu > ul").css("display","none");
+		var eduid='edu'+edunum;
+		$("#" + eduid).css("display","block");	
+		if(edunum<4){
+			edunum++;	
+		}else{
+			edunum=1;	
+		}							
+	});  
+});
+</script>
+
+<script src="http://www.51cto.com/head_art_more1.js"></script>
+<!-- 登陆信息 -->
+<!-- 导航 结束--> 
+ <div class="g_39 mb10">
+	<div id="tonglanad" class="fl"></div>
+	<div id="list4" class="fr">
+		<ul>
+			<li id="wordlinkad1"></li>
+			<li id="wordlinkad2"></li>
+			<li id="wordlinkad3"></li>
+			<li id="wordlinkad4"></li>
+		</ul>
+	</div>
+<br class="dle"/>
+</div>
+
+<div class="g_39 menu">
+<DIV class=subNav_logo><IMG src="http://www.51cto.com/images/sunbanner/kaifa_logo.gif"></DIV>
+<DIV class=subNav_l><A href="http://developer.51cto.com/">首页</A> | <A href="http://developer.51cto.com/java/">Java</A> | <A href="http://developer.51cto.com/net/">.NET</A> | <A href="http://developer.51cto.com/web/">Web</A> | <A href="http://developer.51cto.com/col/585/">语言工具</A> | <A href="http://developer.51cto.com/col/1312/">测试</A> | <A href="http://developer.51cto.com/col/583/" target=_blank>移动</A> | <A href="http://developer.51cto.com/col/1308/">架构</A> | <A href="http://developer.51cto.com/col/586/">项目管理</A> | <a href="http://developer.51cto.com/col/577/ ">大数据</a> | <A href="http://publish.51cto.com/list/460/">全部文章</A></DIV>
+  
+<div class="search fr">
+<dl>
+<form name=searchform action="http://www.51cto.com/php/search.php" target="_blank" method=post style="margin:0px; padding:0px;">
+<dt class="fl"><input name="keyword" type="text" class="searchInput f14 input" value="请输入关键字" onfocus="doempty(this, '请输入关键字');" onblur="doempty(this, '请输入关键字');" /></dt>
+<dd class="fl"><input type="image" src="http://images.51cto.com/images/art/newart1012/images/search.gif" /></dd></form>
+</dl>
+</div>
+<br class="dle"/>
+</div>
+<div class="g_39 b3-s-4273B3 rel">
+<!--width : 26*25 - 15 = 635px-->
+<div class="g_26 fl m_l">
+<div class="brief bgF8F8F8">
+<p class="crumb ">您所在的位置：<a href='http://developer.51cto.com'>开发</a> &gt; <a href='http://developer.51cto.com/col/1325/'>行业新闻</a> &gt;  <b>掀起C++ 11的神秘面纱(2)</b> </p>
+<h1>掀起C++ 11的神秘面纱(2)</h1>
+<div class="msg">
+<div>2011-06-22 09:43  Danny Kalev 翻译：黄永兵  51CTO <span class="f12-a"><a href="#commment" target="_self"></a></span> 字号：<span class="f14-b"><a href="javascript:setfont(12);" target="_self">T</a></span> | <span class="f16-b"><a href="javascript:setfont(16);" target="_self">T</a></span></div>
+<div class='artHd' id='books' style='padding:5px 25px;display:none;'></div>
+<div class="fav"><a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！" target="_self"><img src="http://images.51cto.com/images/art/newart1012/images/Fav.gif" alt="一键收藏，随时查看，分享好友！" border="0" /></a></div>
+</div>
+<div class="brieftext">
+<p class="f14 green">C++之父Bjame Stroustrup最近说C++11就像一个新语言，的确，C++11核心已经发生了巨大的变化，它现在支持Lambda表达式，对象类型自动推断，统一的初始化语法，委托构造函数，deleted和defaulted函数声明nullptr，以及最重要的右值引用。</p>
+<p class="ad">AD：<script src="http://www.51cto.com/js/article/keywords_ad_new.js"></script>
+</p>
+</div>
+</div>
+<div class="tag bgF8F8F8" id="indexlist" style="display:none;">
+<ul id="indexliststr">
+</ul>
+<br class="dle"/>
+</div>
+<div class="content bgF8F8F8 f14">
+<div id="content">
+</p>
+<p><strong>Deleted和Defaulted函数</strong></p>
+<p>一个表单中的函数：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;A
+  &nbsp;</span></span></li><li><span>{
+  &nbsp;</span></li><li class="alt"><span>&nbsp;A()=<span class="keyword">default</span><span>;&nbsp;</span><span class="comment">//C++11</span><span>
+  &nbsp;</span></span></li><li><span>&nbsp;<span class="keyword">virtual</span><span>&nbsp;~A()=</span><span class="keyword">default</span><span>;&nbsp;</span><span class="comment">//C++11</span><span>
+  &nbsp;</span></span></li><li class="alt"><span>};
+  &nbsp;</span></li></ol></pre>
+<p>被称为一个defaulted函数，&ldquo;=default;&rdquo;告诉编译器为函数生成默认的实现。Defaulted函数有两个好处：比手工实现更高效，让程序员摆脱了手工定义这些函数的苦差事。</p>
+<p>与defaulted函数相反的是deleted函数：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="datatypes">int</span><span>&nbsp;func()=</span><span class="keyword">delete</span><span>;</span></span></li></ol></pre>
+<p>Deleted函数对防止对象复制很有用，回想一下C++自动为类声明一个副本构造函数和一个赋值操作符，要禁用复制，声明这两个特殊的成员函数=delete即可：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;NoCopy
+ &nbsp;</span></span></li><li><span>{
+ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;NoCopy&nbsp;&amp;&nbsp;operator&nbsp;=(&nbsp;<span class="keyword">const</span><span>&nbsp;NoCopy&nbsp;&amp;&nbsp;)&nbsp;=&nbsp;</span><span class="keyword">delete</span><span>;
+ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;NoCopy&nbsp;(&nbsp;<span class="keyword">const</span><span>&nbsp;NoCopy&nbsp;&amp;&nbsp;)&nbsp;=&nbsp;</span><span class="keyword">delete</span><span>;
+ &nbsp;</span></span></li><li class="alt"><span>};
+ &nbsp;</span></li><li><span>NoCopy&nbsp;a;
+ &nbsp;</span></li><li class="alt"><span>NoCopy&nbsp;b(a);&nbsp;<span class="comment">//compilation&nbsp;error,&nbsp;copy&nbsp;ctor&nbsp;is&nbsp;deleted</span><span>
+ &nbsp;</span></span></li></ol></pre>
+<p><strong>nullptr</strong></p>
+<p>C++终于有一个关键字指定一个空指针常量了，nullptr取代了有错误倾向的null和文字0，这两个被用来作为空指针替代品已经有很多年的历史了，nullptr是一个强类型：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;f(</span><span class="datatypes">int</span><span>);&nbsp;</span><span class="comment">//#1</span><span>
+ &nbsp;</span></span></li><li><span><span class="keyword">void</span><span>&nbsp;f(</span><span class="datatypes">char</span><span>&nbsp;*);</span><span class="comment">//#2</span><span>
+ &nbsp;</span></span></li><li class="alt"><span><span class="comment">//C++03</span><span>
+ &nbsp;</span></span></li><li><span>f(0);&nbsp;<span class="comment">//which&nbsp;f&nbsp;is&nbsp;called?</span><span>
+ &nbsp;</span></span></li><li class="alt"><span><span class="comment">//C++11</span><span>
+ &nbsp;</span></span></li><li><span>f(nullptr)&nbsp;<span class="comment">//unambiguous,&nbsp;calls&nbsp;#2</span><span>
+ &nbsp;</span></span></li></ol></pre>
+<p>nullptr适用于所有指针类别，包括函数指针和成员指针：&nbsp;</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*pc=str.c_str();&nbsp;</span><span class="comment">//data&nbsp;pointers</span><span>
+ &nbsp;</span></span></li><li><span><span class="keyword">if</span><span>&nbsp;(pc!=nullptr)
+ &nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;cout&lt;&lt;pc&lt;&lt;endl;
+ &nbsp;</span></li><li><span><span class="datatypes">int</span><span>&nbsp;(A::*pmf)()=nullptr;&nbsp;</span><span class="comment">//pointer&nbsp;to&nbsp;member&nbsp;function</span><span>
+ &nbsp;</span></span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;(*pmf)()=nullptr;&nbsp;</span><span class="comment">//pointer&nbsp;to&nbsp;function</span><span>
+ &nbsp;</span></span></li></ol></pre>
+<p><strong>委托构造函数</strong></p>
+<p>在C++11中，构造函数可以调用相同类中的其它构造函数：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">class</span><span>&nbsp;M&nbsp;</span><span class="comment">//C++11&nbsp;delegating&nbsp;constructors</span><span>
+ &nbsp;</span></span></li><li><span>{
+ &nbsp;</span></li><li class="alt"><span>&nbsp;<span class="datatypes">int</span><span>&nbsp;x,&nbsp;y;
+ &nbsp;</span></span></li><li><span>&nbsp;<span class="datatypes">char</span><span>&nbsp;*p;
+ &nbsp;</span></span></li><li class="alt"><span><span class="keyword">public</span><span>:
+ &nbsp;</span></span></li><li><span>&nbsp;M(<span class="datatypes">int</span><span>&nbsp;v)&nbsp;:&nbsp;x(v),&nbsp;y(0),&nbsp;&nbsp;p(</span><span class="keyword">new</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;[MAX])&nbsp;&nbsp;{}&nbsp;</span><span class="comment">//#1&nbsp;target</span><span>
+ &nbsp;</span></span></li><li class="alt"><span>&nbsp;M():&nbsp;M(0)&nbsp;{cout&lt;&lt;<span class="string">&quot;delegating&nbsp;ctor&quot;</span><span>&lt;
+ &nbsp;</span></span></li></ol></pre>
+<p>构造函数#2，委托构造函数，调用目标构造函数#1。</p>
+<p><strong>右值引用</strong></p>
+<p>C++03中的引用类型只能绑定左值，C++11引入了一种新型引用类型，叫做右值引用，右值引用可以绑定左值，例如，临时对象和字面量。增加右值引用的主要原因是move(移动)语义，它和传统的复制不一样，移动意味着目标对象偷窃了源对象的资源，留下一个状态为&ldquo;空&rdquo;的资源，在某些情况下，复制一个对象代价既高又没有必要，可以用一个移动操作代替，如果你想评估移动带来的性能收益，可以考虑字符串交换，一个幼稚的实现如下：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;naiveswap(string&nbsp;&amp;a,&nbsp;string&nbsp;&amp;&nbsp;b)
+ &nbsp;</span></span></li><li><span>{
+ &nbsp;</span></li><li class="alt"><span>&nbsp;string&nbsp;temp&nbsp;=&nbsp;a;
+ &nbsp;</span></li><li><span>&nbsp;a=b;
+ &nbsp;</span></li><li class="alt"><span>&nbsp;b=temp;
+ &nbsp;</span></li><li><span>}
+ &nbsp;</span></li></ol></pre>
+<p>像这样写代价是很高的，复制字符串必须分配原始内存，将字符从源位置复制到目标位置，相反，移动字符串仅仅是交换两个数据成员，不用分配内存，复制char数组和删除内存：</p>
+<pre><ol class="dp-cpp"><li class="alt"><p><span><span class="keyword">void</span><span>&nbsp;moveswapstr(string&amp;&nbsp;empty,&nbsp;string&nbsp;&amp;&nbsp;filled)
+ &nbsp;</span></span></p></li><li><p><span>{
+ &nbsp;</span></p></li><li class="alt"><p><span><span class="comment">//pseudo&nbsp;code,&nbsp;but&nbsp;you&nbsp;get&nbsp;the&nbsp;idea</span><span>
+ &nbsp;</span></span></p></li><li><p><span>&nbsp;<span class="datatypes">size_t</span><span>&nbsp;sz=empty.size();
+ &nbsp;</span></span></p></li><li class="alt"><p><span>&nbsp;<span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*p=&nbsp;empty.data();
+ &nbsp;</span></span></p></li><li><p><span><span class="comment">//move&nbsp;filled's&nbsp;resources&nbsp;to&nbsp;empty</span><span>
+ &nbsp;</span></span></p></li><li class="alt"><p><span>&nbsp;empty.setsize(filled.size());
+ &nbsp;</span></p></li><li><p><span>&nbsp;empty.setdata(filled.data());
+ &nbsp;</span></p></li><li class="alt"><p><span><span class="comment">//filled&nbsp;becomes&nbsp;empty</span><span>
+ &nbsp;</span></span></p></li><li><p><span>&nbsp;filled.setsize(sz);
+ &nbsp;</span></p></li><li class="alt"><p><span>&nbsp;filled.setdata(p);
+ &nbsp;</span></p></li><li><p><span>}
+ &nbsp;</span></p></li></ol></pre>
+<p>如果你实现的类支持移动，你可以像下面这样声明一个移动构造函数和一个移动赋值操作符：</p>
+<pre><ol class="dp-cpp"><li class="alt"><span><span class="keyword">class</span><span>&nbsp;Movable
+&nbsp;</span></span></li><li><span>{
+&nbsp;</span></li><li class="alt"><span>Movable&nbsp;(Movable&amp;&amp;);&nbsp;<span class="comment">//move&nbsp;constructor</span><span>
+&nbsp;</span></span></li><li><span>Movable&amp;&amp;&nbsp;operator=(Movable&amp;&amp;);&nbsp;<span class="comment">//move&nbsp;assignment&nbsp;operator</span><span>
+&nbsp;</span></span></li><li class="alt"><span>};
+&nbsp;</span></li></ol></pre>
+<p> 
+<p class="blank10"></p> 
+<div class="page"><a href='270597.htm' target='_self' class='prew'><span><em>&lt;&lt;</em>  上一页</span></a> <a href='270597.htm' target='_self'><span>1</span></a> <em id='cur'>2</em><a href='270597_2.htm' target='_self'><span>3</span></a> <a href='270597_2.htm' target='_self' class='next'><span>下一页<em>&gt;&gt;</em></span></a><a href='270597_all.htm' target='_blank' class='next'><span>查看全文</span></a></div> 
+<div class="docu"><strong class="f12">内容导航</strong><div class="f12"><table width='100%'><tr><td width='50%'>&nbsp;第 1 页：<a href='270597.htm' target='_self'>C++11标准的变化</a></td> <td width='50%'>&nbsp;第 2 页：<a href='270597_1.htm' target='_self'><font color=red>Deleted和Defaulted函数</font></a></td> </tr><tr><td width='50%'>&nbsp;第 3 页：<a href='270597_2.htm' target='_self'>统一初始化语法</a></td> </tr></table></div><br class="dle"/></div> 
+
+
+<div class="f12"> <span class="fl">原文：<a href="http://developer.51cto.com/art/201106/270597.htm" class="blue"><b>掀起C++ 11的神秘面纱(2)</b></a></span> <span class="fr"><a href="http://developer.51cto.com">返回开发首页</a></span> </div>
+<p class="blank1"></p>
+</div>
+<hr style="border-top: #555555 1px solid; height: 1px; border-right: medium none; border-bottom: medium none; border-left: medium none"  />
+<div style="width: 600px; background: #ffffff"><img width="600" height="140" alt="" src="http://s3.51cto.com/wyfs02/M01/76/4A/wKioL1ZOwrbDjDqxAABJOr5GFjU021.png" border="0"  /></div>
+<hr style="border-top: #555555 1px solid; height: 1px; border-right: medium none; border-bottom: medium none; border-left: medium none"  />
+<iframe width="600" height="239" src="http://widget.weibo.com/relationship/bulkfollow.php?language=zh_cn&amp;uids=1708729084,1706976420,3812432787,1422974343,1927494533,1734475394&amp;wide=0&amp;color=C2D9F2,FFFFFF,0082CB,666666&amp;showtitle=1&amp;showinfo=1&amp;sense=0&amp;verified=1&amp;count=6&amp;refer='+encodeURIComponent(location.href)+'&amp;dpc=1" frameborder="0" scrolling="no"></iframe>
+<div class="tips">
+<div style="float:left;">
+<span style="float:left; margin-top:4px;">分享到：</span>
+<!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="margin-right:5px; float:left;">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <a class="bds_t163"></a>
+        <span class="bds_more"></span>
+		<a class="shareCount"></a>
+
+</div>
+<!--<div class="fl"> 
+    </div>
+--><script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=585532" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	var bds_config = {'snsKey':{'tsina':'2378297317'}};
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+
+
+
+</div><div class="fr blue"><a href="javascript:AddFavorite(document.location.href,document.title);" target="_self">收藏</a>|<a href="javascript:window.print();" target="_self">打印</a>|<a id="msnqqcopy" title="分享本资源给好友" target="_self">复制</a></div>
+</div>
+</div>
+<!--内容 end-->
+<div class="topbiaoqing">
+<div class="biaoqing fixfloat pad" >
+<ul>
+<li><a href='javascript:getcountscom(270597,1)' target="_self"><img src="http://images.51cto.com/images/art1105/images/bq1.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,1)' target="_self">给力</a></div>
+<span id="270597_1">(0票)</span></li>
+<li><a href='javascript:getcountscom(270597,2)'  target="_self"><img src="http://images.51cto.com/images/art1105/images/bq2.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,2)'  target="_self">动心</a></div>
+<span id="270597_2">(0票)</span></li>
+<li><a href='javascript:getcountscom(270597,3)'  target="_self"><img src="http://images.51cto.com/images/art1105/images/bq3.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,3)'  target="_self">废话</a></div>
+<span id="270597_3">(0票)</span></li>
+<li><a href='javascript:getcountscom(270597,4)'  target="_self"><img src="http://images.51cto.com/images/art1105/images/bq4.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,4)'  target="_self">专业</a></div>
+<span id="270597_4">(0票)</span></li>
+<li><a href='javascript:getcountscom(270597,5)'  target="_self"><img src="http://images.51cto.com/images/art1105/images/bq5.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,5)'  target="_self">标题党</a></div>
+<span id="270597_5">(0票)</span></li>
+<li><a href='javascript:getcountscom(270597,6)'  target="_self"><img src="http://images.51cto.com/images/art1105/images/bq6.jpg" /></a>
+<div><a href='javascript:getcountscom(270597,6)'  target="_self">路过</a></div>
+<span id="270597_6">(0票)</span></li>
+</ul>
+</div>
+<script language="javascript"> 
+getcountscom(270597,11);
+
+</script>
+</div>
+<p class="blank10"></p>
+<!--reltag end-->
+
+<p class="blank10"></p>
+<div class="uyan">
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1609262"></script>
+</div>
+<!--box end-->
+
+<div class="bor">
+<div class="titbg pl15">关于<a href='http://www.51cto.com/php/search.php?keyword=C%2B%2B' target='_blank' class='underline'>C++</a>的更多文章</div>
+<div class="reltag">
+<ul class="fl list02">
+  <li><a href="http://developer.51cto.com/art/201310/413014.htm" title="C++面试中string类的一种正确写法">C++面试中string类的一种正确写法</a></li><li><a href="http://developer.51cto.com/art/201310/412394.htm" title="C++模板”>>”编译问题与词法消歧设计">C++模板”>>”编译问题与词法消歧设计</a></li><li><a href="http://developer.51cto.com/art/201309/411414.htm" title="C++11标准后的C++阅读书目">C++11标准后的C++阅读书目</a></li><li><a href="http://developer.51cto.com/art/201309/411349.htm" title="为什么C++程序员不想改用Go语言">为什么C++程序员不想改用Go语言</a></li><li><a href="http://developer.51cto.com/art/201309/410279.htm" title="使用C++的StringBuilder提升4350%的性能">使用C++的StringBuilder提升4350%的性能</a></li>
+</ul>
+<div class="fr">
+<div class="h5 f12"><a href="http://developer.51cto.com/art/200709/56340.htm" title="C++是垃圾语言？！"><b>C++是垃圾语言？！</b></a></div>
+<a href="http://developer.51cto.com/art/200709/56340.htm" title="C++是垃圾语言？！"><img src="http://images.51cto.com/files/uploadimg/20070914/181548927.gif" alt="C++是垃圾语言？！" width="100" height="80" border="0" /></a>
+<p class="c666">Linux之父对C++进行了炮轰，说它是糟糕程序员的垃圾语言，可谓是<a class="blue"href="http://developer.51cto.com/art/200709/56340.htm" title="C++是垃圾语言？！">[详细]</a></p>
+</div>
+</div></div>
+
+<p class="blank10"></p>
+
+
+
+<div class="relart fl bor">
+<div class="titbg">
+<h3 class="fl t1">栏目热门</h3>
+<a href="/click/1325" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+  
+	  <li><a href="http://developer.51cto.com/art/201309/411224.htm" title="Google告别MySQL移步MariaDB">Google告别MySQL移步MariaDB</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201310/413776.htm" title="Firefox 封杀 Java 惹恼开发者">Firefox 封杀 Java 惹恼开发者</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201309/411743.htm" title="谷歌发布3年来最大的一次搜索引擎算法改进">谷歌发布3年来最大的一次搜索引擎算法改进</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201310/413445.htm" title="Gartner发布2014年十大战略性技术趋势">Gartner发布2014年十大战略性技术趋势</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201309/411192.htm" title="甲骨文全球大会开幕洞察及交流的盛宴">甲骨文全球大会开幕洞察及交流的盛宴</a></li>
+	  
+</ul>
+</div>
+<div class="cathot fr bor">
+<div class="titbg">
+<h3 class="fl t1">同期最新</h3>
+<a href="/col/1325" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+	
+	  <li><a href="http://developer.51cto.com/art/201106/269677.htm" title="51CTO电子杂志《开发月刊》">51CTO电子杂志《开发月刊》</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201106/268695.htm" title="51CTO电子杂志《开发月刊》2011年6月刊发布">51CTO电子杂志《开发月刊》2011年6月刊发布</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201106/267825.htm" title="窥探朝鲜国内的软件开发课程">窥探朝鲜国内的软件开发课程</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201106/267258.htm" title="2011年6月编程语言排行榜：为孩子创造的语言Scratch">2011年6月编程语言排行榜：为孩子创造的语</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201105/261913.htm" title="51CTO电子杂志《开发月刊》2011年5月刊发布">51CTO电子杂志《开发月刊》2011年5月刊发布</a></li>
+	  
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1"><a href="http://developer.51cto.com">开发</a></h3>
+<span class="pl10">频道导航</span></div>
+ <ul class="xtlist">
+<li><span class="tit">Java</span>
+<div><a href="http://developer.51cto.com/java/">Java开发</a>|<a href="http://developer.51cto.com/col/1005/">Java基础</a>|<a href="http://developer.51cto.com/col/1014/">Java EE开发</a>|<a href="http://developer.51cto.com/col/1004/">Java框架</a>|<a href="http://developer.51cto.com/col/1007/">设计模式</a></div>
+</li>
+<li><span class="tit">WEB开发</span>
+<div><a href="http://developer.51cto.com/col/1441/">PHP开发</a>|<a href="http://developer.51cto.com/col/1455/">Python</a>|<a href="http://developer.51cto.com/col/1552/">Ruby</a>|<a href="http://developer.51cto.com/col/1552/">JSP</a>|<a href="http://developer.51cto.com/art/200907/133407.htm">HTML 5</a>|<a href="http://developer.51cto.com/col/1450/">DIV+CSS</a></div>
+</li>
+<li class="last"><span class="tit">综合</span>
+<div><a href="http://developer.51cto.com/net/">.NET开发</a>|<a href="http://developer.51cto.com/embed/">嵌入式开发</a>|<a href="http://developer.51cto.com/col/586/">项目管理</a>|<a href="http://developer.51cto.com/col/1308/">架构设计</a></div>
+</li>
+</ul> 
+</div> 
+<p class="blank10"></p>
+<p class=blank10></p>
+<DIV class=leftbotcon>
+<DIV class="bor jdlist">
+<DIV class=titbg>
+<H3 class=t2>热点推荐</H3></DIV>
+<UL>
+<LI><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://mobile.51cto.com/mobile-182392.htm"><IMG src="http://images.51cto.com/files/uploadimg/20100202/153546162.jpg"></A> 
+<DIV class=name><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://mobile.51cto.com/mobile-182392.htm">Android开发应用详解</A></DIV></LI>
+<LI><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://developer.51cto.com/art/201106/266369.htm"><IMG src="http://images.51cto.com/files/uploadimg/20110608/133620622.jpg"></A> 
+<DIV class=name><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://developer.51cto.com/art/201106/266369.htm">那些性感的让人尖叫的程序员</A></DIV></LI>
+<LI><A href="http://developer.51cto.com/art/200907/133407.htm"><IMG src="http://images.51cto.com/files/uploadimg/20090702/134217922.jpg"></A> 
+<DIV class=name><A href="http://developer.51cto.com/art/200907/133407.htm">HTML5 下一代Web开发标准详解</A></DIV></LI>
+<LI><A href="http://developer.51cto.com/art/201104/257581.htm"><IMG src="http://images.51cto.com/files/uploadimg/20110426/123123954.jpg"></A> 
+<DIV class=name><A href="http://developer.51cto.com/art/201104/257581.htm">高性能WEB开发应用指南</A></DIV></LI>
+<LI><A href="http://os.51cto.com/art/200706/49181.htm"><IMG src="http://images.51cto.com/files/uploadimg/20070613/195816929.jpg"></A> 
+<DIV class=name><A href="http://os.51cto.com/art/200706/49181.htm">Ubuntu开源技术交流频道</A></DIV></LI></UL></DIV>
+<P class=blank10></P>
+<DIV class="bor hotTag"><STRONG>热门标签：</STRONG> <A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-2]);" href="http://os.51cto.com/windows/">windows频道</A><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://mobile.51cto.com/">移动开发</A><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://cloud.51cto.com/">云计算</A><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://mobile.51cto.com/mobile/objc/">objective-c</A><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://network.51cto.com/art/200909/151122.htm">tp-link路由器设置图解</A><A onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://developer.51cto.com/art/200907/133407.htm">html5</A> </DIV></DIV>
+<div class="leftbotbox"> </div>
+</div>
+<!--left end-->
+<div class="g_13 fr">
+<div class="focus fixfloat"> 
+ <img width="298" style="border: 1px solid #CCCCCC; margin:5px 0px 5px;" src="http://www.51cto.com/images/weixin.jpg"><div class="hot">
+<ul>
+<li class="tit"><em>热点</em> <a href="http://developer.51cto.com/art/201603/507060.htm">可是姑娘，你为什么要编程呢?</a> </li>
+<li class="con"><dl><dt><a href="http://developer.51cto.com/art/201603/507060.htm"><img border="0" src="http://s2.51cto.com/wyfs02/M02/7C/FF/wKioL1beT4SQccgbAABxqJkiof8210.jpg"/></a></dt>
+<dd>所以姑娘，让我们做一枚花见花开的程序媛。</dd>
+</dl></li></ul><ol class="hotlist"><li><a href="http://developer.51cto.com/art/201602/506409.htm">快速使用大规模机器学习的核心技术</a></li><li><a href="http://developer.51cto.com/art/201602/505817.htm">十年，我终于离开了360</a></li></ol></div>
+<p id="hzh_one">
+<script language="JavaScript" src="http://www.51cto.com/ad/art/hzh/ad.js" type="text/javascript"></script>
+</p>
+</div>
+<div class="rank">
+<div class="tlt">
+      <h3>文章排行</h3>
+      <a onmouseover="change_top10(3);" id="top_3">本月</a><a onmouseover="change_top10(2);" id="top_2">本周</a><a onmouseover="change_top10(1);" class="myon" id="top_1">24小时</a> </div>
+ <div id="top10_1" style="display: block;" class="list"><ul>
+<li><a href="http://developer.51cto.com/art/201006/205212.htm" target="_blank" title="多图详解Spring框架的设计理念与设计模">多图详解Spring框架的设计理念与设计模</a>
+<li><a href="http://developer.51cto.com/art/201107/274075.htm" target="_blank" title="29个非常实用的HTML 5实例、教程和技巧">29个非常实用的HTML 5实例、教程和技巧</a>
+<li><a href="http://developer.51cto.com/art/201501/464543.htm" target="_blank" title="PHP对战Node.js：一场关于开发者喜好的">PHP对战Node.js：一场关于开发者喜好的</a>
+<li><a href="http://developer.51cto.com/art/200906/128274.htm" target="_blank" title="Java数组声明、创建、初始化">Java数组声明、创建、初始化</a>
+<li><a href="http://developer.51cto.com/art/200903/117512.htm" target="_blank" title="详解Java解析XML的四种方法">详解Java解析XML的四种方法</a>
+<li><a href="http://developer.51cto.com/art/201302/380661.htm" target="_blank" title="现在就开始使用AngularJS的三个重要原">现在就开始使用AngularJS的三个重要原</a>
+<li><a href="http://developer.51cto.com/art/201502/464853.htm" target="_blank" title="游戏中的“战争黑雾”和现实中的程序员">游戏中的“战争黑雾”和现实中的程序员</a>
+<li><a href="http://developer.51cto.com/art/200908/146071.htm" target="_blank" title="五个免费UML建模工具推荐">五个免费UML建模工具推荐</a>
+<li><a href="http://developer.51cto.com/art/201103/248670.htm" target="_blank" title="25个超棒的jQuery日历和日期选取插件">25个超棒的jQuery日历和日期选取插件</a>
+<li><a href="http://developer.51cto.com/art/201502/464832.htm" target="_blank" title="Visual C++ 2015引入更新的C++ 特性到W">Visual C++ 2015引入更新的C++ 特性到W</a>
+</ul></div>
+<div id="top10_2" style="display: none;" class="list"><ul>
+<li><a href="http://developer.51cto.com/art/201501/464543.htm" target="_blank" title="PHP对战Node.js：一场关于开发者喜好的">PHP对战Node.js：一场关于开发者喜好的</a>
+<li><a href="http://developer.51cto.com/art/201501/464238.htm" target="_blank" title="关于大型网站技术演进的思考：存储的瓶">关于大型网站技术演进的思考：存储的瓶</a>
+<li><a href="http://developer.51cto.com/art/201501/464538.htm" target="_blank" title="我辞去了工作 住在帐篷中写代码">我辞去了工作 住在帐篷中写代码</a>
+<li><a href="http://developer.51cto.com/art/201501/464391.htm" target="_blank" title="【博文推荐】来自某CTO的演讲：对码农">【博文推荐】来自某CTO的演讲：对码农</a>
+<li><a href="http://developer.51cto.com/art/201501/464539.htm" target="_blank" title="Java架构师与开发者提高效率的10个工具">Java架构师与开发者提高效率的10个工具</a>
+<li><a href="http://developer.51cto.com/art/201501/464382.htm" target="_blank" title="能让程序员心花怒放的七种礼物">能让程序员心花怒放的七种礼物</a>
+<li><a href="http://developer.51cto.com/art/201502/464640.htm" target="_blank" title="如何在发型不乱的前提下应对单日十亿计">如何在发型不乱的前提下应对单日十亿计</a>
+<li><a href="http://developer.51cto.com/art/201501/464537.htm" target="_blank" title="微信开放JS-SDK后 创业还需要开发App么">微信开放JS-SDK后 创业还需要开发App么</a>
+<li><a href="http://developer.51cto.com/art/201502/464638.htm" target="_blank" title="优秀网站看前端：小米Note介绍页面代码">优秀网站看前端：小米Note介绍页面代码</a>
+<li><a href="http://developer.51cto.com/art/201502/464632.htm" target="_blank" title="软件项目将死的 27 个征兆">软件项目将死的 27 个征兆</a>
+</ul></div>
+<div id="top10_3" style="display: none;" class="list"><ul>
+<li><a href="http://developer.51cto.com/art/201501/464174.htm" target="_blank" title="近200篇机器学习&深度学习资料分享（含">近200篇机器学习&深度学习资料分享（含</a>
+<li><a href="http://developer.51cto.com/art/201501/463840.htm" target="_blank" title="2015年薪酬大涨的15个IT岗位">2015年薪酬大涨的15个IT岗位</a>
+<li><a href="http://developer.51cto.com/art/201501/463946.htm" target="_blank" title="成为高级程序员的 10 个步骤">成为高级程序员的 10 个步骤</a>
+<li><a href="http://developer.51cto.com/art/201501/464113.htm" target="_blank" title="程序员愤怒了：我们不仅要当管理者还要">程序员愤怒了：我们不仅要当管理者还要</a>
+<li><a href="http://developer.51cto.com/art/201501/463234.htm" target="_blank" title="2015年1月编程语言排行榜：JavaScript">2015年1月编程语言排行榜：JavaScript</a>
+<li><a href="http://developer.51cto.com/art/201501/463338.htm" target="_blank" title="参考淘宝团队实践：一个简单粗暴的前后">参考淘宝团队实践：一个简单粗暴的前后</a>
+<li><a href="http://developer.51cto.com/art/201501/464232.htm" target="_blank" title="2014年最热门的国人开发开源软件TOP100">2014年最热门的国人开发开源软件TOP100</a>
+<li><a href="http://developer.51cto.com/art/201501/464170.htm" target="_blank" title="不要浪费时间去写所谓的完美代码">不要浪费时间去写所谓的完美代码</a>
+<li><a href="http://developer.51cto.com/art/201501/464543.htm" target="_blank" title="PHP对战Node.js：一场关于开发者喜好的">PHP对战Node.js：一场关于开发者喜好的</a>
+<li><a href="http://developer.51cto.com/art/201501/464238.htm" target="_blank" title="关于大型网站技术演进的思考：存储的瓶">关于大型网站技术演进的思考：存储的瓶</a>
+</ul></div>
+ 
+ </div>
+<p class="blank1"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点职位</h3>
+<a href="http://gaozhao.51cto.com/job-search/list" class="tmore">更多&gt;&gt;</a></div>
+	<div class="rmzwn_xx"></div>
+</div>
+<div class="blank10"></div>
+<script src="http://www.51cto.com/images/home_2015/js/51cto_sha1.js"></script>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点专题</h3>
+<a href="http://developer.51cto.com/speclist/1325" class="tmore">更多&gt;&gt;</a></div>
+<ul class="plist01">
+<li><a href="http://developer.51cto.com/art/201311/415182.htm" title="开发频道2013年10月第5周重点内容推荐：JavaScript就是一种垃圾语言"><img src="http://s5.51cto.com/wyfs01/M00/31/AE/wKioJlJzSTTgD4rzAAATbDPO0Lg822.jpg" alt="开发频道2013年10月第5周重点内容推荐：JavaScript就是一种垃圾语言" width="100" height="80" /></a>
+<h5><a href="http://developer.51cto.com/art/201311/415182.htm" title="开发频道2013年10月第5周重点内容推荐：JavaScript就是一种垃圾语言">开发频道2013年10月第</a></h5>
+<div class="c666">又是一周匆匆而过。上周五、周六两天，2013年51CTO云</div>
+</li><li><a href="http://developer.51cto.com/art/201310/413970.htm" title="开发频道2013年10月第4周重点内容推荐：马云疯了！都是小马哥逼的"><img src="http://s2.51cto.com/wyfs01/M02/31/81/wKioJlJtxkDQvxdSAAASilOeUY8524.jpg" alt="开发频道2013年10月第4周重点内容推荐：马云疯了！都是小马哥逼的" width="100" height="80" /></a>
+<h5><a href="http://developer.51cto.com/art/201310/413970.htm" title="开发频道2013年10月第4周重点内容推荐：马云疯了！都是小马哥逼的">开发频道2013年10月第</a></h5>
+<div class="c666">十一归来，貌似大家都没有什么劲头。本周五，为期两天</div>
+</li><li><a href="http://developer.51cto.com/art/201310/413497.htm" title="待字闺中：编程面题集"><img src="http://s7.51cto.com/wyfs01/M02/31/0E/wKioOVJkfVHRs1EoAAAPAavkp1E398.jpg" alt="待字闺中：编程面题集" width="100" height="80" /></a>
+<h5><a href="http://developer.51cto.com/art/201310/413497.htm" title="待字闺中：编程面题集">待字闺中：编程面题集</a></h5>
+<div class="c666">《待字闺中：编程面试题集》集合最新最全的面试经验和</div>
+</li> 
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tagCloud">
+<div class="tlt">
+<h3>热点标签</h3>
+</div>
+<div class="taglist"><A title=编程语言排行榜 href="http://developer.51cto.com/art/200911/165281.htm">编程语言排行榜</A> <A title=敏捷开发 href="http://developer.51cto.com/art/200803/68222.htm">敏捷开发</A> <A title=Eclipse href="http://developer.51cto.com/art/201006/207407.htm">Eclipse 3.6</A> <A title=PHP设计模式 href="http://developer.51cto.com/art/201004/195765.htm">PHP设计模式</A> <A title=NetBeans7 href="http://developer.51cto.com/art/201105/259431.htm">NetBeans 7</A> <A title=Java7 href="http://developer.51cto.com/art/201001/175830.htm">Java7</A> <A title=Scala编程语言 href="http://developer.51cto.com/art/200906/127830.htm">Scala编程语言</A> <A title=Python编程世界 href="http://developer.51cto.com/art/201011/234347.htm">Python编程世界</A> <A title=Ruby On Rails开发 href="http://developer.51cto.com/art/201007/215101.htm">Ruby On Rails开发</A> <A class=imp title=LINQ href="http://developer.51cto.com/art/200911/165090.htm">LINQ</A> <A title=ASP.NET视频教程 href="http://developer.51cto.com/art/200904/120314.htm">ASP.NET视频教程</A> <A title="Visual Studio" href="http://developer.51cto.com/art/201004/194262.htm">Visual Studio</A> <A title="智能手机" href="http://p.linkphone.cn/">智能手机</A> <A title="软件下载" href="http://download.linkphone.cn/">软件下载</A></div>
+</div>
+<div class="rss">
+<ul>
+<li class="lin f12-c"><a href="http://news.51cto.com/col/1323/"><strong>点击这里查看样刊</strong></a></li>
+<li>
+<dl>
+<dt> </dt>
+<dd><a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="http://images.51cto.com/images/art0910/images/dingy.gif" /></a></dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">全站热点</h3>
+</div>
+<div class="webhot fixfloat">
+<ul>
+
+<li>
+  <a href="http://mobile.51cto.com/market-408462.htm"  title="App营销之ASO应用商店优化攻略"><img src="http://s4.51cto.com/wyfs01/M00/17/6D/wKioOVIdcyXiY1CVAABFnIenMdo436.jpg" /></a>
+  <div><a href="http://mobile.51cto.com/market-408462.htm"  title="App营销之ASO应用商店优化攻略">App营销之ASO应用商店优化攻略</a></div>
+</li>
+
+<li>
+  <a href="http://network.51cto.com/network/ruijie/newton-video/"  title="网络世界的Newton"><img src="http://s8.51cto.com/wyfs01/M01/17/6A/wKioOVIdcMfwql8tAACW4jbaj_M992.jpg" /></a>
+  <div><a href="http://network.51cto.com/network/ruijie/newton-video/"  title="网络世界的Newton">网络世界的Newton</a></div>
+</li>
+
+</ul>
+</div>
+<p class="blank1"></p>
+<ul class="list03">
+
+<li><a href="http://server.51cto.com/News-404780.htm"  title="NETGEAR全国巡展:移动互联网与企业网的变革">NETGEAR全国巡展:移动互联网与企业网</a></li>
+
+<li><a href="http://netsecurity.51cto.com/art/201307/404778.htm"  title="智能安全分析：利用大数据推动高效安全">智能安全分析：利用大数据推动高效安</a></li>
+
+<li><a href="http://book.51cto.com/art/201307/404744.htm"  title="C++ API设计">C++ API设计</a></li>
+
+<li><a href="http://book.51cto.com/art/201307/404572.htm"  title="循序渐进DB2(第2版)--DBA系统管理、运维与应用案例">循序渐进DB2(第2版)--DBA系统管理、</a></li>
+
+<li><a href="http://developer.51cto.com/art/201307/404569.htm"  title="Duke’s Choice Awards奖项首次在中国Java社区中选出">Duke’s Choice Awards奖项首次在中</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">读书</h3>
+</div>
+  
+<div class="catbook"><a href="http://book.51cto.com/art/200704/44704.htm" title="Java程序设计专家门诊"><img src="http://images.51cto.com/files/uploadimg/20070407/100959753.jpg" width="66" height="98" border="0" /></a>
+<h5><a href="http://book.51cto.com/art/200704/44704.htm">Java程序设计专家门诊</a></h5>
+<div class="c666 text">精选目前国内外最流行的程序设计语言——Java作为本书的选题，并以丰富的内容来解决读者学习该语言时可能遇到的各种问题。以专业</div>
+</div>
+
+
+<ul class="list03">
+
+<li><a href="http://book.51cto.com/art/200704/45766.htm" title="数据库原理与应用">数据库原理与应用</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45771.htm" title="游戏关卡设计">游戏关卡设计</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45776.htm" title="信息安全风险评估">信息安全风险评估</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45784.htm" title="程序员面试宝典">程序员面试宝典</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1 fl">博文推荐</h3>
+<a class="tmore" href="http://blog.51cto.com/">更多&gt;&gt;</a></div>
+
+<ul class="list03">
+ <li><a href="http://wangxiaoyu.blog.51cto.com/922065/204014/" target="_blank" title="Redhat或Fedora下实现网络无人值守安装(Kickstart)">Redhat或Fedora下实现网络无人值守安</a></li><li><a href="http://hawke.blog.51cto.com/702628/203993/" target="_blank" title="万物之始与终…你的身体 (From Begin to End for Anything...Your Body)">万物之始与终…你的身体 (From Begin</a></li><li><a href="http://sunjibin.blog.51cto.com/918334/203972/" target="_blank" title="【修炼8】《初级篇》别忘了告诉别人你是谁 ">【修炼8】《初级篇》别忘了告诉别人</a></li><li><a href="http://933580.blog.51cto.com/923580/203878/" target="_blank" title="“烎文化”是怎么火起来的？">“烎文化”是怎么火起来的？</a></li>
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tj">
+<div class="tlt">
+<h3>最新热帖</h3>
+<a class="more" href="http://bbs.51cto.com/hotthreads.php">更多&gt;&gt;</a></div>
+<ul>
+<li><a href="http://bbs.51cto.com/thread-26429-1.html" target="_blank" title="通用WAP网站生成系统(PowerDiamond) v.1">通用WAP网站生成系统(PowerDiamond) </a></li><li><a href="http://bbs.51cto.com/thread-11063-1.html" target="_blank" title="八类大学毕业生求职时不受欢迎">八类大学毕业生求职时不受欢迎</a></li><li><a href="http://bbs.51cto.com/thread-6946-1.html" target="_blank" title="IT人为什么难以拿到高薪？【转帖】">IT人为什么难以拿到高薪？【转帖】</a></li><li><a href="http://bbs.51cto.com/thread-4333-1.html" target="_blank" title="想去外企上班">想去外企上班</a></li>
+</ul>
+</div>
+<div class="picAD">
+<script language="JavaScript" src="http://www.51cto.com/ad/art/baidugoogle/ad.js" type="text/javascript"></script>
+</div>
+</div>
+<p class="blank1"></p> 
+<!--leftbotcon end-->
+</div> 
+<div style="width:960px; margin:0 auto;">
+<script type="text/javascript">
+    /*960*90 创建于 2015-11-05文章页 旗下网站上方通栏*/
+    var cpro_id = "u2386966";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+<div class="subweb">
+<h4>51CTO旗下网站</h4>
+<div>
+<a target="_blank" href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>
+<a target="_blank" href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>
+<a target="_blank" href="http://www.cioage.com/">中国首个CIO网站 CIOage</a>
+<a target="_blank" href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>
+</div>
+</div>
+<div style="width:960px; margin:0 auto;">
+<script type="text/javascript">
+    /*960*90 2015-10-21 文章页：外链广告*/
+    var cpro_id = "u2362464";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+<div id="ft"><div id="foot" align="center"><script src="http://images.51cto.com/images/copy_right/copy_right.js"></script></div></div>
+<script src="http://logs.51cto.com/rizhi/count/count.js"></script>
+<script type="text/javascript">
+	$("#uyan_cmt_list").next().remove();	
+	$("#uyan_cmt_list").next().css("display","none");	
+</script>
+<style>
+.Nfloat { position: fixed; right: 2%; top: 35%; z-index: 801; }
+</style>
+
+
+
+<!-- 新监测代码 -->
+<!-- 新监测代码 -->
+<div id="MyMoveAd" style="display:none">
+<span id="wordlink_1"><script src="http://www.51cto.com/ad/art/wordlink/wordlink1.js"></script></span>
+<span id="wordlink_2"><script src="http://www.51cto.com/ad/art/wordlink/wordlink2.js"></script></span>
+<span id="wordlink_3"><script src="http://www.51cto.com/ad/art/wordlink/wordlink3.js"></script></span>
+<span id="wordlink_4"><script src="http://www.51cto.com/ad/art/wordlink/wordlink4.js"></script></span>
+<span id="pinglun"><script language="JavaScript" src="http://www.51cto.com/php/getArtCount.php?artid=270597&type=all"></script></span>
+<span id="tonglan"><script language="JavaScript" src="http://www.51cto.com/ad/art/tonglan/ad.js"></script></span>
+<span id="wordlink"><script language="JavaScript" src="http://www.51cto.com/ad/art/wordlink/ad.js"></script></span>
+<script src="http://www.51cto.com/ad/art/wordlink/ad.js"></script>
+<span id="bookss"><script language="JavaScript" src="http://www.51cto.com/php/getBookData.php?artid="></script></span>
+</div>   
+<script language="javascript" src="http://www.51cto.com/js/article/favorite.js"></script>
+
+<script language="javaScript" src="http://www.51cto.com/php/dialog_utf8.js"></SCRIPT>
+<script language="javaScript" src="http://www.51cto.com/mail.js"></script>  
+<script type="text/javascript" src="http://home.51cto.com/apps/favorite/Tpl/default/Public/js/favorbox.js"></script>
+<script language="javascript" src="http://images.51cto.com/images/art/newart1012/clipboard.js"></script>
+<script language="javaScript"> 
+	var thistid=270597; 
+	
+	//收藏按钮
+	var favor_url = 'http://developer.51cto.com/art/201106/270597.htm';  // 如：http://bbs.51cto.com/thread-789649-1.html
+	var favor_title = '掀起C++ 11的神秘面纱(2)';       //  
+	
+	//绑定复制按钮
+	copy('msnqqcopy', 'http://developer.51cto.com/art/201106/270597.htm', '分享到MSN/QQ的链接复制成功!');
+//	copy('bbscopy', '[url=http://developer.51cto.com/art/201106/270597.htm][u]掀起C++ 11的神秘面纱(2)[/u][/url]', '分享到论坛的UBB代码复制成功!');
+
+</script> 
+<script src=" http://home.51cto.com/index.php?s=/Index/getLoginStatus/reback/http%253A%252F%252Fdeveloper.51cto.com%252Fart%252F201106%252F270597.htm" charset='utf-8'></script>
+<script src="http://www.51cto.com/php/count.php?view=yes&artID=270597" language="javascript"></script>
+<script language="javascript">
+document.getElementById('books').innerHTML = document.getElementById("bookss").innerHTML; 
+</script>
+
+</body>
+</html>

@@ -2,6 +2,7 @@
 
 from Widget.ListWidget import ListWidget
 from Widget.CodeWidget import CodeWidget
+from Widget.HtmlWidget import HtmlWidget
 
 class WidgetManager:
     def __init__(self):
@@ -11,6 +12,8 @@ class WidgetManager:
         self.WidgetDict['list'].readTables()
         self.WidgetDict['code'] = CodeWidget()
         self.WidgetDict['code'].hide()
+        self.WidgetDict['html'] = HtmlWidget()
+        self.WidgetDict['html'].hide()
         
 
     def getCurrentWidget(self):

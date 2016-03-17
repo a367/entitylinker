@@ -34,7 +34,7 @@ class ToolBar(QWidget):
         btn_list.clicked.connect(lambda: self.changeFrame('list'))
 
         btn_html = ToolBtn(QIcon("../icon/html.png"), "html")
-        #btn_html.clicked.connect(lambda: self.changeFrame('html'))
+        btn_html.clicked.connect(lambda: self.changeFrame('html'))
 
         btn_text = ToolBtn(QIcon("../icon/text.png"), "text")
         btn_import = ToolBtn(QIcon("../icon/import.png"), "import")
