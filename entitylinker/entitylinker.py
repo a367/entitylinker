@@ -55,9 +55,9 @@ class MainWindow(QMainWindow):
         # 整体布局器加入   
         widget.setLayout(mainLayout) 
 
-        #self.resize(1060,840)
+        self.resize(1060,840)
         
-        self.resize(1560,1340)
+        #self.resize(1560,1340)
         self.center()
 
     # 居中显示

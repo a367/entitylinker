@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="entitylinker.py" />
+    <Compile Include="Function\LexerManager.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Function\WidgetManager.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +49,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Item\ToolBar.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Widget\HtmlWidget.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Widget\ListWidget.py">

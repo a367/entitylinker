@@ -5,10 +5,12 @@ from PyQt4.QtWebKit import *
 from Item.MainList import MainList
 from Function.LexerManager import LexerManager
 
-class CodeList(MainList):
-    def __init__(self):
+class HtmlList(MainList):
+    def __init__(self, parent = None):
         MainList.__init__(self)
         self.clicked.connect(self.changeViewer)
+        #QModelIndex().data().toString()
+
 
     def connectViewer(self, viewer):
         self.viewer = viewer
@@ -22,33 +24,32 @@ class CodeList(MainList):
         item.setSizeHint(QSize(140,40))
         self.addItem(item)
 
-class CodeViewer(QWebView):
+class HtmlViewer(QWebView):
     def __init__(self, *args):
         QWebView.__init__(self)
-        self.pythonLex = LexerManager('python',True)
-        #self.CppLex = LexerManager('c++',True)
-        #JavaLex = LexerManager('java',True)
+        self.HtmlLex = LexerManager('html')
+
+    def setCode(self, filename):
+        self.setHtml(self.HtmlLex.getCode(filename))
 
     def getCodelist(self):
-        return self.pythonLex.codeDict.keys()
-    
-    def setCode(self, filename):
-        self.setHtml(self.pythonLex.getCode(filename))
+        return self.HtmlLex.codeDict.keys()
 
-class CodeWidget(QWidget):
+
+class HtmlWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
 
         layout = QHBoxLayout()
-        self.list = CodeList()
-        self.codeView = CodeViewer()
-        self.list.connectViewer(self.codeView)
+        self.list = HtmlList()
+        self.htmlView = HtmlViewer()
+        self.list.connectViewer(self.htmlView)
 
-        for filename in self.codeView.getCodelist():
+        for filename in self.htmlView.getCodelist():
             self.list.feedTitle(filename)
-        
+
         layout.addWidget(self.list)
-        layout.addWidget(self.codeView)
+        layout.addWidget(self.htmlView)
 
         self.setLayout(layout)
         self.setMinimumWidth(840)
