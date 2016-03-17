@@ -60,7 +60,7 @@ int main()
 
 	vector<Table> tables = loadData(str);
 	Table t = tables[0];
-	cout << t(0,0).candidates[0].name << endl;
+	cout << t(0, 0).candidates[0].name << endl;
 
 	system("pause");
 	return 0;

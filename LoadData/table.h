@@ -25,11 +25,6 @@ public:
 	std::string mention;
 	std::vector<Entity> candidates;
 
-	Cell()
-	{
-
-	}
-
 	void feed(std::string mention, std::vector<Entity> candidates)
 	{
 		this->mention = mention;
@@ -55,6 +50,26 @@ public:
 		}
 	}
 
+	Table(const Table& table)
+	{
+		row = table.row;
+		col = table.col;
+
+		cell = new Cell*[row];
+		for (int r = 0; r < row; r++)
+		{
+			cell[r] = new Cell[col];
+		}
+
+		for (int i = 0; i < this->row; i++)
+		{
+			for (int j = 0; j < this->col; j++)
+			{
+				cell[i][j] = table.cell[i][j];
+			}
+		}
+	}
+
 	Cell& operator()(int i, int j)
 	{
 		return cell[i][j];
@@ -69,14 +84,14 @@ public:
 		delete[] cell;
 	}
 
-	//~Table()
-	//{
-	//	for (int i = 0; i < row; i++)
-	//	{
-	//		delete[] cell[i];
-	//	}
-	//	delete[] cell;
-	//}
+	~Table()
+	{
+		for (int i = 0; i < row; i++)
+		{
+			delete[] cell[i];
+		}
+		delete[] cell;
+	}
 
 private:
 	Cell** cell;
